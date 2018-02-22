@@ -207,7 +207,10 @@ abstract class AbstractElement
      */
     protected function getText($text)
     {
-        return CommonText::controlCharacterPHP2OOXML($text);
+        $strText = rtrim($text);
+        $strText = str_replace("\n", '<w:br/>', $strText);
+        $strText = preg_replace('@\p{Cc}@u', '', $strText);
+        return CommonText::controlCharacterPHP2OOXML($strText);
     }
 
     /**
